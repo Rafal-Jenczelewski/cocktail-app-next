@@ -1,0 +1,52 @@
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  password Password?
+}
+
+model Password {
+  hash String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+}
+
+model Recipe {
+  id   String @id @default(cuid())
+  name String
+  body String
+
+  ingredients IngredientAmount[]
+}
+
+model Ingredient {
+  id               String             @id @default(cuid())
+  name             String             @unique
+  available        Boolean
+  IngredientAmount IngredientAmount[]
+}
+
+model IngredientAmount {
+  id     String @id @default(cuid())
+  amount String
+
+  ingredientId String
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Recipe       Recipe?    @relation(fields: [recipeId], references: [id])
+  recipeId     String?
+}
