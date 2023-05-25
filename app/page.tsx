@@ -1,17 +1,7 @@
 import Link from "next/link";
-import { prisma } from "@/database";
-
-const routes = [
-  { url: "/ingredients", label: "Skadniki" },
-  { url: "/recipes", label: "Przepisy" },
-];
-
-function getAllRecipeNames() {
-  return prisma.recipe.findMany({ select: { name: true } });
-}
+import { routes } from "@/utils/routing";
 
 export default async function Home() {
-  console.log(await getAllRecipeNames());
   return (
     <main className={"flex h-full w-full flex-col items-center justify-start"}>
       <h1 className="px-4 pt-16 text-center text-6xl font-extrabold tracking-tight">
