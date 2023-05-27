@@ -36,6 +36,30 @@ async function seed() {
     },
   });
 
+  await Promise.all(
+    [
+      "Ciemny rum",
+      "Pasoa",
+      "Wino musujące",
+      "Woda gazowana",
+      "Sprite",
+      "Jagermaister",
+      "Grenadyna",
+      "Likier brzoskwiniowy",
+      "Likier czekoladowy",
+      "Malibu",
+      "Bitters",
+      "Truskawki",
+      "Cukier",
+      "Syrop Waniliowy",
+      "Brandy",
+      "Kahula",
+      "Vermouth"
+    ].map((name) =>
+      prisma.ingredient.create({ data: { name, available: false } })
+    )
+  );
+
   console.log(`Database has been seeded. 🌱`);
 }
 
