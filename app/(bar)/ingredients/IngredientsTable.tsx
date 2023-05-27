@@ -8,11 +8,30 @@ import {
   SortingState,
 } from "@tanstack/table-core";
 import { flexRender, useReactTable } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import cx from "classnames";
 import { FaSortAmountUp, FaSortAmountDown } from "react-icons/fa";
+import { editIngredient } from "@/app/(bar)/ingredients/actions";
 
 const columnHelper = createColumnHelper<Ingredient>();
+
+function AvailabilityCell(props) {
+  const [isPending, startTransition] = useTransition();
+
+  return (
+    <input
+      type={"checkbox"}
+      disabled={isPending}
+      checked={props.getValue()}
+      onChange={(e) => {
+        startTransition(() =>
+          editIngredient(props.row.id, { available: e.target.checked })
+        );
+      }}
+      name={"availability"}
+    />
+  );
+}
 
 const columns = [
   columnHelper.accessor("name", {
@@ -23,7 +42,7 @@ const columns = [
   columnHelper.accessor("available", {
     header: "Mam",
     enableGlobalFilter: false,
-    cell: (props) => <input type={"checkbox"} defaultChecked={props.getValue()} />,
+    cell: AvailabilityCell,
   }),
 ];
 
