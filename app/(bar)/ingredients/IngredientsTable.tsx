@@ -10,6 +10,7 @@ import {
 import { flexRender, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
 import cx from "classnames";
+import { FaSortAmountUp, FaSortAmountDown } from "react-icons/fa";
 
 const columnHelper = createColumnHelper<Ingredient>();
 
@@ -22,7 +23,7 @@ const columns = [
   columnHelper.accessor("available", {
     header: "Mam",
     enableGlobalFilter: false,
-    cell: (props) => <input type={"checkbox"} checked={props.getValue()} />,
+    cell: (props) => <input type={"checkbox"} defaultChecked={props.getValue()} />,
   }),
 ];
 
@@ -44,7 +45,7 @@ export function IngredientsTable(props: { ingredients: Ingredient[] }) {
   });
 
   return (
-    <div className={"h-[85vh] w-full overflow-y-scroll"}>
+    <div className={"h-[85vh] w-full overflow-y-scroll px-2"}>
       <table className={"w-full"}>
         <thead className={"text-lg"}>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -67,8 +68,8 @@ export function IngredientsTable(props: { ingredients: Ingredient[] }) {
                         header.getContext()
                       )}
                       {{
-                        asc: "asc",
-                        desc: "desc",
+                        asc: <FaSortAmountUp />,
+                        desc: <FaSortAmountDown />,
                       }[header.column.getIsSorted() as string] ?? null}
                     </div>
                   )}
