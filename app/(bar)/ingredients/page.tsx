@@ -6,22 +6,19 @@ import { FaPlus } from "react-icons/fa";
 export default async function Ingredients(props: {
   searchParams: { q: string };
 }) {
-  const q = props.searchParams.q;
-  const ingredients = await fetchIngredients(q);
+  const query = props.searchParams.q;
+  const ingredients = await fetchIngredients(query);
+
   return (
-    <div className={"flex h-full flex-col gap-2 pt-2"}>
-      <form method="GET" className={"flex w-full justify-center px-2"}>
-        <input
-          name={"q"}
-          className={
-            "w-full rounded-xl border-2 border-white bg-gray-800 px-2 py-1 text-lg"
-          }
-          defaultValue={q}
-          placeholder={"Szukaj..."}
-        />
-        <input hidden type={"submit"} />
-      </form>
-      <IngredientsTable ingredients={ingredients} />
+    <div className={"h-full grid grid-rows-[auto_80vh_2rem] gap-2 pt-2"}>
+      <Search query={query} />
+      {ingredients.length === 0 ? (
+        <div className={"flex w-full items-center justify-center"}>
+          Nic nie znaleziono
+        </div>
+      ) : (
+        <IngredientsTable ingredients={ingredients} />
+      )}
       <div className={"flex flex-grow items-center justify-center"}>
         <Link
           href={"ingredients/new"}
@@ -31,6 +28,22 @@ export default async function Ingredients(props: {
         </Link>
       </div>
     </div>
+  );
+}
+
+function Search(props: { query: string }) {
+  return (
+    <form method="GET" className={"flex w-full justify-center px-2"}>
+      <input
+        name={"q"}
+        className={
+          "w-full rounded-xl border-2 border-white bg-gray-800 px-2 py-1 text-lg"
+        }
+        defaultValue={props.query}
+        placeholder={"Szukaj..."}
+      />
+      <input hidden type={"submit"} />
+    </form>
   );
 }
 
