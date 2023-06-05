@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export async function editIngredient(
   id: Ingredient["id"],
-  data: Pick<Ingredient, "available" | "name">
+  data: Partial<Ingredient>
 ) {
   await prisma.ingredient.update({ where: { id }, data });
   revalidatePath("/ingredients");

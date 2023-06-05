@@ -2,6 +2,7 @@
 
 import { Ingredient } from "@prisma/client";
 import {
+  CellContext,
   createColumnHelper,
   getCoreRowModel,
   getSortedRowModel,
@@ -132,7 +133,7 @@ function Footer(props: { table: Table<Ingredient> }) {
   );
 }
 
-function AvailabilityCell(props) {
+function AvailabilityCell(props: CellContext<Ingredient, boolean>) {
   const [isPending, startTransition] = useTransition();
 
   return (

@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/react/index.d.ts b/node_modules/@types/react/index.d.ts
+index 0cfabbb..fdbdc24 100755
+--- a/node_modules/@types/react/index.d.ts
++++ b/node_modules/@types/react/index.d.ts
+@@ -1136,7 +1136,7 @@ declare namespace React {
+     function useDebugValue<T>(value: T, format?: (value: T) => any): void;
+ 
+     // must be synchronous
+-    export type TransitionFunction = () => VoidOrUndefinedOnly;
++    export type TransitionFunction = () => VoidOrUndefinedOnly | Promise<void>;
+     // strange definition to allow vscode to show documentation on the invocation
+     export interface TransitionStartFunction {
+         /**
