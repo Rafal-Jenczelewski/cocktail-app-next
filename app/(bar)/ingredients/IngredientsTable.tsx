@@ -47,7 +47,7 @@ export function IngredientsTable(props: { ingredients: Ingredient[] }) {
   }) as Table<Ingredient>; //TS????
 
   return (
-    <div className={"h-[85vh] w-full overflow-y-scroll px-2"}>
+    <div className={"h-[80vh] w-full overflow-y-scroll px-2"}>
       <table className={"w-full"}>
         <Header table={table} />
         <tbody>

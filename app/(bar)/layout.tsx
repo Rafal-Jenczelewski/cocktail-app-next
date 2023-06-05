@@ -18,7 +18,7 @@ export default function BarLayout(props: { children: ReactNode }) {
           </Link>
         ))}
       </nav>
-      <div className="flex-1 touch-none border-yellow-700">
+      <div className="h-full flex-1 touch-none border-yellow-700">
         {props.children}
       </div>
     </div>
